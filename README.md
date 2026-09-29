@@ -96,6 +96,61 @@ chmod +x install.sh
 
 ---
 
+## ⚡️ Global CLI Integration (`agy-quota` & `agy-switch`)
+
+The suite installs global CLI tools in your PATH:
+
+```bash
+# Live Quota HUD in terminal with colored progress bars
+agy-quota
+
+# Machine-readable JSON output for autonomous agents
+agy-quota --status-json
+
+# List registered accounts and check active status
+agy-switch --list
+
+# Switch active Antigravity account token
+agy-switch --switch user@gmail.com
+
+# Assign project quota payer
+agy-switch --set-project-quota <project> <account>
+```
+
+---
+
+## 🤖 Local MCP Server & Agent Skill
+
+Autonomous coding agents (Google Antigravity, Claude Code, Gemini CLI, Cursor, VS Code) can connect directly to the built-in zero-dependency MCP server (`mcp_server.py`):
+
+```json
+{
+  "mcpServers": {
+    "antigravity-account-suite": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\gerap\\Desktop\\agent-helper\\antigravity-quota-monitor\\mcp_server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  }
+}
+```
+
+Exposed MCP Tools:
+- `get_quota_status`: Live model limits and reset countdowns.
+- `switch_account`: Instant identity rotation in OS Credential Manager.
+- `set_project_quota`: Project-specific quota billing source assignment.
+- `list_saved_accounts`: Complete status of saved accounts.
+
+Official Agent Skill: `~/.gemini/config/skills/antigravity-account-suite/SKILL.md`
+- Enables autonomous agents to rotate identities seamlessly upon hitting rate limits (`429 / RESOURCE_EXHAUSTED`).
+
+---
+
+
 ## 🛠 Architecture & How It Works
 
 1. **Native Background Daemon (`sync_daemon.py`):**
@@ -128,6 +183,8 @@ chmod +x install.sh
    - **حالت تک‌پنجره (آزادی عمل ۱۰۰٪):** در حالت تک‌پنجره با یک کلیک در بخش «💳 کسر سهمیه از» می‌توانید سهمیه هر پروژه‌ای را به هر حسابی تغییر دهید و توکن سیستم فورا سوئیچ می‌شود تا پرامپت بعدی از همان حساب کسر گردد.
    - **حالت چندپنجره همزمان (قانون تطابق پروژه با پنجره):** برای جلوگیری از تداخل ارسال همزمان پرامپت‌ها در مخزن کلید مشترک سیستم‌عامل (`gemini:antigravity`)، پروژه‌های مربوط به هر حساب را در پنجره همان حساب باز کنید تا بتوانید کاملاً همزمان و با حداکثر سرعت پرامپت بفرستید.
    - **ایزولاسیون کامل تسک‌ها:** اسکریپت‌ها و تسک‌های خودکار مستقیماً توکن را در محیط پروسه دریافت می‌کنند و حتی در اجرای همزمان چند اکانت نیز ۱۰۰٪ ایزوله هستند.
+6. **دستورات یکپارچه خط فرمان (`agy-quota` و `agy-switch`):** پایش سریع وضعیت سهمیه در ترمینال، مشاهده جدول مدل‌ها و زمان بازنشانی با نوارهای پیشرفت رنگی، و خروجی ساختاریافته JSON برای ایجنت‌های مستقل.
+7. **سرور بومی پروتکل زمینه مدل (MCP Server):** ارائه ۴ ابزار تخصصی (`get_quota_status`، `switch_account`، `set_project_quota` و `list_saved_accounts`) برای اتصال مستقیم و ایمن ایجنت‌های کدنویسی مانند Google Antigravity و Claude Code به سیستم سهمیه‌ها.
 
 ---
 
